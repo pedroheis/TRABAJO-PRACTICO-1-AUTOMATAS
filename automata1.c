@@ -81,170 +81,17 @@ int verifica(const char *s)
 
 int main(void)
 {
-    struct {
-        char *palabra;
-        int esperado;
-    } pruebas[] = {
+    char palabra[256];
 
+    printf("Introduce una cadena: ");
+    if (scanf("%255s", palabra) != 1)
+        return 1;
 
-        { "0", 1 },
-        { "1", 1 },
-        { "7", 1 },
-        { "8", 1 },
-        { "9", 1 },
-        { "10", 1 },
-        { "12345", 1 },
-        { "99999", 1 },
-
-        /* Decimales con signo */
-        { "+1", 1 },
-        { "-1", 1 },
-        { "+17", 1 },
-        { "-34", 1 },
-        { "+12345", 1 },
-        { "-98765", 1 },
-
-
-
-        { "0", 1 },
-        { "01", 1 },
-        { "02", 1 },
-        { "07", 1 },
-        { "10", 1 },
-        { "17", 1 },
-        { "20", 1 },
-        { "75", 1 },
-        { "123", 1 },
-        { "777", 1 },
-        { "12345670", 1 },
-
-
-        { "0x1", 1 },
-        { "0x0", 1 },
-        { "0x9", 1 },
-        { "0x12", 1 },
-        { "0x123456", 1 },
-
-        /* Letras minúsculas */
-        { "0xa", 1 },
-        { "0xf", 1 },
-        { "0xab", 1 },
-        { "0xabcdef", 1 },
-
-        /* Letras mayúsculas */
-        { "0xA", 1 },
-        { "0xF", 1 },
-        { "0xAB", 1 },
-        { "0xABCDEF", 1 },
-
-        /* Mezcla de mayúsculas y minúsculas */
-        { "0xAa", 1 },
-        { "0xAbCd", 1 },
-        { "0XaBcD", 1 },
-        { "0XABCdef", 1 },
-
-
-        { "0@1", 1 },
-        { "1@2", 1 },
-        { "123@456", 1 },
-        { "-34@56", 1 },
-        { "+17@-25", 1 },
-
-        { "0x12@075", 1 },
-        { "0x12@075@-34@0XAF", 1 },
-
-        { "1@075@0xAF", 1 },
-        { "-123@+456@0xABC", 1 },
-        { "0@07@0x1@999", 1 },
-        { "12345@777@0xABCDEF@-89", 1 },
-
-        /* Muchos elementos */
-        { "0@1@07@123@0x1@0XFF@-34@+56", 1 },
-
-
-
-        /* 8 y 9 no pueden aparecer después de comenzar
-           una constante que se esté interpretando como octal */
-        { "08", 0 },
-        { "09", 0 },
-        { "078", 0 },
-        { "089", 0 },
-        { "1789", 0 },
-
-
-
-        /* Prefijo sin dígitos */
-        { "0x", 0 },
-        { "0X", 0 },
-
-        /* Caracteres fuera del rango hexadecimal */
-        { "0xG", 0 },
-        { "0xg", 0 },
-        { "0x1G", 0 },
-        { "0x12G", 0 },
-        { "0x123Z", 0 },
-
-
-        { "+", 0 },
-        { "-", 0 },
-        { "++1", 0 },
-        { "--1", 0 },
-        { "+-1", 0 },
-        { "-+1", 0 },
-        { "1+", 0 },
-        { "1-", 0 },
-        { "12+34", 0 },
-
-
-
-        { "@12", 0 },
-        { "12@", 0 },
-        { "1@@2", 0 },
-        { "@", 0 },
-        { "@@", 0 },
-        { "1@@", 0 },
-        { "@@1", 0 },
-
-        /* @ entre números */
-        { "1@2@3", 1 },
-        { "1@07@0xFF", 1 },
-
-
-
-        { "12G", 0 },
-        { "ABC", 0 },
-        { "xyz", 0 },
-        { "12#", 0 },
-        { "12.5", 0 },
-        { "12,5", 0 },
-        { "1 2", 0 },
-        { "0x12@", 0 },
-        { "12@G", 0 },
-
-
-        { "0x12@", 0 },
-        { "@0x12", 0 },
-        { "0x@12", 0 },
-        { "1@08", 0 },
-        { "0x12@@075", 0 },
-        { "+@12", 0 },
-        { "12@-", 0 },
-        { "12@+", 0 },
-        { "12@0x", 0 },
-        { "12@0xG", 0 }
-    };
-
-    unsigned i;
-
-    for (i = 0; i < sizeof(pruebas) / sizeof(pruebas[0]); i++) {
-
-        int resultado = verifica(pruebas[i].palabra) &&
-                         esPalabraLeng(pruebas[i].palabra);
-
-        printf("%-30s -> %s\n",
-               pruebas[i].palabra,
-               resultado == pruebas[i].esperado ? "OK" : "FALLO");
-    }
+    if (verifica(palabra) && esPalabraLeng(palabra))
+        printf("Cadena valida\n");
+    else
+        printf("Cadena invalida\n");
 
     return 0;
 }
+//printf '+123@1@4\n' |./automata1.exe
