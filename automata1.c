@@ -31,8 +31,7 @@ int columna(int e, char c)
 
 int esPalabraLeng(const char *cadena)
 {
-    /* 0: inicio, 1: despues de 0, 2: octal, 3: signo,
-       4: decimal, 5: despues de 0x, 6: estado no usado, 7: hexadecimal */
+
     static int tt[8][9] = {
         /*  0  1-7  +,-  1-9  0-9  0-7  X,x  hex  @ */
         /* 0 */ { 1,   2,   3,   4,  -1,  -1,  -1, -1, -1 },
