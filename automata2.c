@@ -16,7 +16,7 @@ int main(void)
     int totalPruebas = sizeof(pruebas) / sizeof(pruebas[0]);
 
 
-    printf("=== PRUEBAS EJERCICIO 2 ===\n");
+    printf("PRUEBAS EJERCICIO 2\n");
     for (int i = 0; i < totalPruebas; i++)
     {
         char c = pruebas[i];
