@@ -84,28 +84,28 @@ int verifica(const char *s)
     for (unsigned i = 0; s[i] != '\0'; i++) {
         unsigned char c = (unsigned char)s[i];
 
-        if (!(isdigit(c) || c == '+' || c == '-' || c == '@' ||
-              c == 'x' || c == 'X' ||
-              (c >= 'a' && c <= 'f') ||
-              (c >= 'A' && c <= 'F')))
-            return 0;
-    }
+if (!(isdigit(c) || c == '+' || c == '-' || c == '@' ||
+c == 'x' || c == 'X' ||
+(c >= 'a' && c <= 'f') ||
+(c >= 'A' && c <= 'F')))
+return 0;
+}
 
-    return 1;
+return 1;
 }
 
 int main(void)
 {
-    char palabra[256];
+char palabra[256];
 
-    printf("Introduce una cadena: ");
-    if (scanf("%255s", palabra) != 1)
-        return 1;
+printf("Introduce una cadena: ");
+if (scanf("%255s", palabra) != 1)
+return 1;
 
-    if (verifica(palabra) && esPalabraLeng(palabra))
-        printf("Cadena valida\n");
-    else
-        printf("Cadena invalida\n");
+if (verifica(palabra) && esPalabraLeng(palabra))
+printf("Cadena valida\n");
+else
+printf("Cadena invalida\n");
 
     return 0;
 }
