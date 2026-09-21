@@ -5,25 +5,41 @@ int columna(int e, char c)
 {
     if (c == '@') return 8;
 
-    if (e == 0 || e == 3) {
+    if (e == 0) {
         if (c == '0') return 0;
         if (c >= '1' && c <= '7') return 1;
         if (c == '+' || c == '-') return 2;
         if (c >= '8' && c <= '9') return 3;
     }
 
-    if (e == 1 || e == 2) {
-        if (c >= '0' && c <= '7') return 5;
-        if (e == 1 && (c == 'x' || c == 'X')) return 6;
+    if (e == 1) {
+        if (c == '0') return 0;
+        if (c >= '1' && c <= '7') return 1;
+        if (c >= '8' && c <= '9') return 3;
     }
 
-    if (e == 4 || e == 5) {
+    if (e == 2) {
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) return 7;
+    }
+
+    if (e == 3) {
+        if (c == 'x' || c == 'X') return 6;
+    }
+
+    if (e == 4) {
+        if (c >= '0' && c <= '7') return 5;
+        if (c == '8' || c == '9') return 4;
+    }
+
+    if (e == 5) {
         if (c >= '0' && c <= '9') return 4;
     }
 
-    if (e == 5 || e == 7) {
-        if ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) return 7;
-        if (e == 7 && c >= '0' && c <= '9') return 7;
+    if (e == 6) {
+    }
+
+    if (e == 7) {
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) return 7;
     }
 
     return -1;
@@ -31,19 +47,17 @@ int columna(int e, char c)
 
 int esPalabraLeng(const char *cadena)
 {
-
     static int tt[8][9] = {
-        
-                   { 1,   2,   3,   4,  -1,  -1,  -1, -1, -1 },
-                   { -1, -1,  -1, -1,  -1,   2,   5, -1,  0 },
-                   { -1, -1,  -1, -1,  -1,   2,  -1, -1,  0 },
-                   { 1,   2,  -1,   4,  -1,  -1,  -1, -1, -1 },
-                   { -1, -1,  -1, -1,   4,  -1,  -1, -1,  0 },
-                   { -1, -1,  -1, -1,   7,  -1,  -1,  7, -1 },
-                   { -1, -1,  -1, -1,  -1,  -1,  -1, -1, -1 },
-                   { -1, -1,  -1, -1,  -1,  -1,  -1,  7,  0 }
-
+        {  3,   4,   1,   5,  -1,  -1,  -1,  -1, -1 },
+        {  6,   4,  -1,   5,  -1,  -1,  -1,  -1, -1 },
+        { -1,  -1,  -1,  -1,  -1,  -1,  -1,   7, -1 },
+        { -1,  -1,  -1,  -1,  -1,  -1,   2,  -1,  0 },
+        { -1,  -1,  -1,  -1,   5,   4,  -1,  -1,  0 },
+        { -1,  -1,  -1,  -1,   5,  -1,  -1,  -1,  0 },
+        { -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  0 },
+        { -1,  -1,  -1,  -1,  -1,  -1,  -1,   7,  0 }
     };
+
     int e = 0;
     int i = 0;
     int c = cadena[0];
@@ -59,14 +73,15 @@ int esPalabraLeng(const char *cadena)
         c = cadena[i];
     }
 
-    return e == 1 || e == 2 || e == 4 || e == 7;
+    return e == 3 || e == 4 || e == 5 || e == 6 || e == 7;
 }
 
 int verifica(const char *s)
 {
-    unsigned i;
+    if (s == NULL || *s == '\0')
+        return 0;
 
-    for (i = 0; s[i] != '\0'; i++) {
+    for (unsigned i = 0; s[i] != '\0'; i++) {
         unsigned char c = (unsigned char)s[i];
 
         if (!(isdigit(c) || c == '+' || c == '-' || c == '@' ||
@@ -94,4 +109,3 @@ int main(void)
 
     return 0;
 }
-//printf '+123@1@4\n' |./automata1.exe
